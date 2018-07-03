@@ -6,6 +6,7 @@
         "ext-iconv": "*",
         "easycorp/easyadmin-bundle": "^1.17",
         "sensio/framework-extra-bundle": "^5.1",
+        "symfony/apache-pack": "^1.0",
         "symfony/asset": "^3.4",
         "symfony/console": "^3.4",
         "symfony/expression-language": "^3.4",
@@ -71,7 +72,7 @@
     },
     "extra": {
         "symfony": {
-            "allow-contrib": false
+            "allow-contrib": "true"
         }
     }
 }
