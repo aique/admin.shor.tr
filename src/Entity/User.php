@@ -16,6 +16,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class User implements UserInterface, \Serializable
 {
+
     /**
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
@@ -28,6 +29,7 @@ class User implements UserInterface, \Serializable
      *     min=5,
      *     max=25,
      * )
+     * @Assert\Regex("/^[a-zA-Z0-9]+$/")
      * @ORM\Column(name="username", type="string", length=25)
      */
     private $username;
@@ -65,6 +67,13 @@ class User implements UserInterface, \Serializable
      * @ORM\OneToMany(targetEntity="ShortLink", mappedBy="user")
      */
     private $shortLinks;
+
+    public function __construct($username, $email, $plainPassword)
+    {
+        $this->username = $username;
+        $this->email = $email;
+        $this->plainPassword = $plainPassword;
+    }
 
     /**
      * @return mixed
