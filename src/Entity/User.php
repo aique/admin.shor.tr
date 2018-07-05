@@ -68,7 +68,7 @@ class User implements UserInterface, \Serializable
      */
     private $shortLinks;
 
-    public function __construct($username, $email, $plainPassword)
+    public function __construct($username = null, $email = null, $plainPassword = null)
     {
         $this->username = $username;
         $this->email = $email;

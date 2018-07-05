@@ -79,6 +79,6 @@ class ShortLink
 
     public function __toString()
     {
-        return strval($this->getId());
+        return strval($this->getUrl());
     }
 }

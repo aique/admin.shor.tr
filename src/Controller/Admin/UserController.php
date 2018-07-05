@@ -31,4 +31,52 @@ class UserController extends BaseAdminController
 
         return $user;
     }
+
+    protected function listAction()
+    {
+        /** @var User $user */
+        $user = $this->get('security.token_storage')->getToken()->getUser();
+
+        if (!$user->getisAdmin()) {
+            return $this->redirectToRoute('dashboard');
+        }
+
+        return parent::listAction();
+    }
+
+    protected function newAction()
+    {
+        /** @var User $user */
+        $user = $this->get('security.token_storage')->getToken()->getUser();
+
+        if (!$user->getisAdmin()) {
+            return $this->redirectToRoute('dashboard');
+        }
+
+        return parent::newAction();
+    }
+
+    protected function editAction()
+    {
+        /** @var User $user */
+        $user = $this->get('security.token_storage')->getToken()->getUser();
+
+        if (!$user->getisAdmin()) {
+            return $this->redirectToRoute('dashboard');
+        }
+
+        return parent::newAction();
+    }
+
+    protected function deleteAction()
+    {
+        /** @var User $user */
+        $user = $this->get('security.token_storage')->getToken()->getUser();
+
+        if (!$user->getisAdmin()) {
+            return $this->redirectToRoute('dashboard');
+        }
+
+        return parent::deleteAction();
+    }
 }
