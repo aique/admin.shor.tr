@@ -56,6 +56,18 @@ class UserController extends BaseAdminController
         return parent::newAction();
     }
 
+    protected function showAction()
+    {
+        /** @var User $user */
+        $user = $this->get('security.token_storage')->getToken()->getUser();
+
+        if (!$user->getisAdmin()) {
+            return $this->redirectToRoute('dashboard');
+        }
+
+        return parent::showAction();
+    }
+
     protected function editAction()
     {
         /** @var User $user */
@@ -65,7 +77,7 @@ class UserController extends BaseAdminController
             return $this->redirectToRoute('dashboard');
         }
 
-        return parent::newAction();
+        return parent::editAction();
     }
 
     protected function deleteAction()

@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use App\Services\ShortLink\Shorter;
+use App\Services\ShortLink\ShortUrlHelper;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -28,6 +30,13 @@ class ShortLink
      * @ORM\JoinColumn(name="user_id", referencedColumnName="id", nullable=false)
      */
     private $user;
+
+    /**
+     * Atributo adicional creado para que el admin pueda mostrarlo en sus listados.
+     *
+     * @var string
+     */
+    private $shortUrl;
 
     /**
      * @return mixed
@@ -75,6 +84,14 @@ class ShortLink
     public function setUser($user)
     {
         $this->user = $user;
+    }
+
+    /**
+     * @return string
+     */
+    public function getShortUrl()
+    {
+        return $this;
     }
 
     public function __toString()

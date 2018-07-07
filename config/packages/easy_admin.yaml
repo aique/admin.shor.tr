@@ -19,6 +19,10 @@ easy_admin:
         ShortLink:
             class: App\Entity\ShortLink
             controller: App\Controller\Admin\ShortLinkController
+            list:
+                fields:
+                    - { property: 'shortUrl', template: 'admin/short_url.html.twig' }
+                    - { property: 'url', type: 'url' }
             form:
                 fields:
                     - 'url'
