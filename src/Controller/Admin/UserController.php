@@ -38,7 +38,7 @@ class UserController extends BaseAdminController
         $user = $this->get('security.token_storage')->getToken()->getUser();
 
         if (!$user->getisAdmin()) {
-            return $this->redirectToRoute('dashboard');
+            throw $this->createAccessDeniedException();
         }
 
         return parent::listAction();
@@ -50,7 +50,7 @@ class UserController extends BaseAdminController
         $user = $this->get('security.token_storage')->getToken()->getUser();
 
         if (!$user->getisAdmin()) {
-            return $this->redirectToRoute('dashboard');
+            throw $this->createAccessDeniedException();
         }
 
         return parent::newAction();
@@ -62,7 +62,7 @@ class UserController extends BaseAdminController
         $user = $this->get('security.token_storage')->getToken()->getUser();
 
         if (!$user->getisAdmin()) {
-            return $this->redirectToRoute('dashboard');
+            throw $this->createAccessDeniedException();
         }
 
         return parent::showAction();
@@ -74,7 +74,7 @@ class UserController extends BaseAdminController
         $user = $this->get('security.token_storage')->getToken()->getUser();
 
         if (!$user->getisAdmin()) {
-            return $this->redirectToRoute('dashboard');
+            throw $this->createAccessDeniedException();
         }
 
         return parent::editAction();
@@ -86,7 +86,7 @@ class UserController extends BaseAdminController
         $user = $this->get('security.token_storage')->getToken()->getUser();
 
         if (!$user->getisAdmin()) {
-            return $this->redirectToRoute('dashboard');
+            throw $this->createAccessDeniedException();
         }
 
         return parent::deleteAction();

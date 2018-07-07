@@ -44,7 +44,7 @@ class ShortLinkController extends BaseAdminController
         $user = $this->get('security.token_storage')->getToken()->getUser();
 
         if ($user->getisAdmin()) {
-            return $this->redirectToRoute('dashboard');
+            throw $this->createAccessDeniedException();
         }
 
         return parent::newAction();
@@ -56,7 +56,7 @@ class ShortLinkController extends BaseAdminController
         $user = $this->get('security.token_storage')->getToken()->getUser();
 
         if ($user->getisAdmin()) {
-            return $this->redirectToRoute('dashboard');
+            throw $this->createAccessDeniedException();
         }
 
         return parent::editAction();
