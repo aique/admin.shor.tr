@@ -2,6 +2,8 @@
 
 namespace App\Controller;
 
+use App\Entity\LinkRequestStats;
+use App\Entity\ShortLink;
 use App\Services\ShortLink\Shorter;
 use App\Services\ShortLink\WrongUrlShorterException;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -35,11 +37,26 @@ class ApiController extends Controller
         $shortLink = $this->getDoctrine()->getRepository('App:ShortLink')->find($id);
 
         if ($shortLink) {
+            $this->saveLinkRequestStats($request, $shortLink);
+
             return new JsonResponse([
                 'url' => $shortLink->getUrl(),
             ]);
         }
 
         return new JsonResponse([], JsonResponse::HTTP_BAD_REQUEST);
+    }
+
+    private function saveLinkRequestStats(Request $request, ShortLink $shortLink) {
+        $ip = $request->request->get('ip'); // TODO validar que la información llegue correctamente
+
+        $stats = new LinkRequestStats();
+        $stats->setShortLink($shortLink);
+        $stats->setCreatedAt(new \DateTime());
+        $stats->setIp($ip);
+
+        $em = $this->getDoctrine()->getManager();
+        $em->persist($stats);
+        $em->flush();
     }
 }

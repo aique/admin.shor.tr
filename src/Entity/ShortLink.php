@@ -2,8 +2,6 @@
 
 namespace App\Entity;
 
-use App\Services\ShortLink\Shorter;
-use App\Services\ShortLink\ShortUrlHelper;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -32,11 +30,9 @@ class ShortLink
     private $user;
 
     /**
-     * Atributo adicional creado para que el admin pueda mostrarlo en sus listados.
-     *
-     * @var string
+     * @ORM\OneToMany(targetEntity="LinkRequestStats", mappedBy="shortLink")
      */
-    private $shortUrl;
+    private $stats;
 
     /**
      * @return mixed
@@ -92,6 +88,22 @@ class ShortLink
     public function getShortUrl()
     {
         return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getStats()
+    {
+        return $this->stats;
+    }
+
+    /**
+     * @param mixed $stats
+     */
+    public function setStats($stats)
+    {
+        $this->stats = $stats;
     }
 
     public function __toString()
