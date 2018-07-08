@@ -33,6 +33,12 @@ class ShorterTest extends TestCase
 
         $this->expectException(WrongIdShorterException::class);
         $shorter->getShorterUrl(-1);
+
+        $this->expectException(WrongIdShorterException::class);
+        $shorter->getShorterUrl('');
+
+        $this->expectException(WrongIdShorterException::class);
+        $shorter->getShorterUrl('abc');
     }
 
     public function testShorterWrongUrls()

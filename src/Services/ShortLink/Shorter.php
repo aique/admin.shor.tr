@@ -23,6 +23,10 @@ class Shorter
 
     public function getShorterUrl($id)
     {
+        if (!preg_match('/^[0-9]+$/', $id)) {
+            throw new WrongIdShorterException();
+        }
+
         if ($id < 0) {
             throw new WrongIdShorterException();
         }
