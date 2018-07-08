@@ -10,6 +10,16 @@ use Symfony\Component\Form\FormError;
 
 class ShortLinkController extends BaseAdminController
 {
+    public function statsAction()
+    {
+        $id = $this->request->query->get('id');
+        $repository = $this->getDoctrine()->getRepository('App:LinkRequestStats');
+
+        return $this->render('admin/stats.html.twig', [
+            'stats' => $repository->findLastShortLinkStats($id, 50),
+        ]);
+    }
+
     /**
      * @param ShortLink $shortLink
      * @return mixed|void

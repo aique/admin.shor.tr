@@ -1,0 +1,44 @@
+{% extends '@EasyAdmin/default/list.html.twig' %}
+
+{% block content_header %}
+    <h1>Short link stats</h1>
+{% endblock content_header %}
+
+{% block main %}
+
+    {% if stats|length == 0 %}
+
+        <p>There is still no stats.</p>
+
+    {% else %}
+
+        <div class="table-responsive">
+
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th><span>Created at</span></th>
+                        <th><span>IP</span></th>
+                        <th><span>Device</span></th>
+                        <th><span>Referer</span></th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                {% for stat in stats %}
+                    <tr>
+                        <td>{{ stat.createdAt|date('Y-m-d H:i:s') }}</td>
+                        <td>{{ stat.ip }}</td>
+                        <td>{{ stat.device }}</td>
+                        <td>{{ stat.referer }}</td>
+                    </tr>
+                {% endfor %}
+
+                </tbody>
+            </table>
+
+        </div>
+
+    {% endif %}
+
+{% endblock main %}

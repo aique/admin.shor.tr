@@ -23,11 +23,12 @@ easy_admin:
                 fields:
                     - { property: 'shortUrl', template: 'admin/short_url.html.twig' }
                     - { property: 'url', type: 'url' }
+                actions: ['stats', 'edit', 'delete']
             form:
                 fields:
                     - 'url'
     design:
         menu:
-            - { label: 'Dashboard', url: '/dashboard', default: true }
+            - { label: 'Welcome', url: '/welcome', default: true }
             - User
             - ShortLink
