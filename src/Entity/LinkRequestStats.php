@@ -9,6 +9,11 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class LinkRequestStats
 {
+    const MOBILE_DEVICE = 'mobile';
+    const TABLET_DEVICE = 'tablet';
+    const DESKTOP_DEVICE = 'desktop';
+    const UNKNOWN_DEVICE = 'unknown';
+
     /**
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
@@ -31,6 +36,11 @@ class LinkRequestStats
      * @ORM\Column(name="ip", type="string", length=45)
      */
     private $ip;
+
+    /**
+     * @ORM\Column(name="device", type="string", columnDefinition="ENUM('mobile', 'tablet', 'desktop', 'unknown')")
+     */
+    private $device;
 
     /**
      * @return mixed
@@ -94,5 +104,25 @@ class LinkRequestStats
     public function setIp($ip)
     {
         $this->ip = $ip;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getDevice()
+    {
+        return $this->device;
+    }
+
+    /**
+     * @param mixed $device
+     */
+    public function setDevice($device)
+    {
+        if (!in_array($device, array(self::MOBILE_DEVICE, self::TABLET_DEVICE, self::DESKTOP_DEVICE, self::UNKNOWN_DEVICE))) {
+            throw new \InvalidArgumentException("Invalid device");
+        }
+
+        $this->device = $device;
     }
 }
