@@ -43,6 +43,11 @@ class LinkRequestStats
     private $device;
 
     /**
+     * @ORM\Column(name="referer", type="text")
+     */
+    private $referer;
+
+    /**
      * @return mixed
      */
     public function getId()
@@ -124,5 +129,21 @@ class LinkRequestStats
         }
 
         $this->device = $device;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getReferer()
+    {
+        return $this->referer;
+    }
+
+    /**
+     * @param mixed $referer
+     */
+    public function setReferer($referer)
+    {
+        $this->referer = $referer;
     }
 }

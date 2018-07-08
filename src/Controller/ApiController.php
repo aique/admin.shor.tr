@@ -50,12 +50,14 @@ class ApiController extends Controller
     private function saveLinkRequestStats(Request $request, ShortLink $shortLink) {
         $ip = $request->request->get('ip', '');
         $device = $request->request->get('device', LinkRequestStats::UNKNOWN_DEVICE);
+        $referer = $request->request->get('referer', '');
 
         $stats = new LinkRequestStats();
         $stats->setShortLink($shortLink);
         $stats->setCreatedAt(new \DateTime());
         $stats->setIp($ip);
         $stats->setDevice($device);
+        $stats->setReferer($referer);
 
         $em = $this->getDoctrine()->getManager();
         $em->persist($stats);
