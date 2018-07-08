@@ -6,7 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="App\Repository\ShortLinkRepository")
  */
 class ShortLink
 {
@@ -21,7 +21,7 @@ class ShortLink
      * @Assert\Url()
      * @ORM\Column(name="url", type="text")
      */
-    private $url; // TODO validar que la url no exista previamente
+    private $url;
 
     /**
      * @ORM\ManyToOne(targetEntity="User", inversedBy="shortLinks")
