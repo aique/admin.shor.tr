@@ -14,20 +14,8 @@ class Shorter
 {
     const URL_CHARS = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
 
-    private $base;
-
-    public function __construct()
-    {
-        $this->base = strlen(self::URL_CHARS);
-    }
-
-    public function getShorterUrl($id)
-    {
-        if (!preg_match('/^[0-9]+$/', $id)) {
-            throw new WrongIdShorterException();
-        }
-
-        if ($id < 0) {
+    public function getShorterUrl($id) {
+        if ($this->isWrongId($id)) {
             throw new WrongIdShorterException();
         }
 
@@ -35,29 +23,47 @@ class Shorter
             return substr(self::URL_CHARS, 0, 1);
         }
 
+        return $this->calculateShorterUrl($id);
+    }
+
+    private function isWrongId($id) {
+        return !preg_match('/^[0-9]+$/', $id) || $id < 0;
+    }
+
+    private function calculateShorterUrl($id) {
         $url = '';
 
+        $base = strlen(self::URL_CHARS);
+
         while ($id > 0) {
-            $url .= substr(self::URL_CHARS, $id % $this->base, 1);
-            $id = floor($id / $this->base);
+            $url .= substr(self::URL_CHARS, $id % $base, 1);
+            $id = floor($id / $base);
         }
 
         return strrev($url);
     }
 
-    public function getShorterId($url)
-    {
-        if (!preg_match('/^[a-zA-Z0-9]+$/', $url)) {
+    public function getShorterId($url) {
+        if ($this->isWrongUrl($url)) {
             throw new WrongUrlShorterException();
         }
 
+        return $this->calculateShorterId($url);
+    }
+
+    private function isWrongUrl($url) {
+        return !preg_match('/^[a-zA-Z0-9]+$/', $url);
+    }
+
+    private function calculateShorterId($url) {
         $id = 0;
 
+        $base = strlen(self::URL_CHARS);
         $urlLength = strlen($url);
 
         for ($i = 0 ; $i < $urlLength ; $i++) {
             $urlChar = substr($url, $i, 1);
-            $id = ($id * $this->base) + strpos(self::URL_CHARS, $urlChar);
+            $id = ($id * $base) + strpos(self::URL_CHARS, $urlChar);
         }
 
         return $id;

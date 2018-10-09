@@ -6,18 +6,17 @@ use App\Entity\ShortLink;
 /**
  * Clase utilizada para generar las URLs acortadas.
  */
-class ShortUrlHelper
+class ShortUrlGenerator
 {
     private $frontUrl;
     private $shorter;
 
-    public function __construct($frontUrl, Shorter $shorter)
-    {
+    public function __construct($frontUrl, Shorter $shorter) {
         $this->frontUrl = $frontUrl;
         $this->shorter = $shorter;
     }
 
     public function shortUrl(ShortLink $shortLink) {
-        return $this->frontUrl.'/'.$this->shorter->getShorterUrl($shortLink->getId());
+        return $this->frontUrl.$this->shorter->getShorterUrl($shortLink->getId());
     }
 }

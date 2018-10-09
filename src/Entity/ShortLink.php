@@ -35,6 +35,17 @@ class ShortLink
     private $stats;
 
     /**
+     * ShortLink constructor.
+     * @param $id
+     * @param $url
+     */
+    public function __construct($id, $url)
+    {
+        $this->id = $id;
+        $this->url = $url;
+    }
+
+    /**
      * @return mixed
      */
     public function getId()

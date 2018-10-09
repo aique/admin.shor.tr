@@ -3,7 +3,7 @@
 namespace App\Twig;
 
 use App\Entity\ShortLink;
-use App\Services\ShortLink\ShortUrlHelper;
+use App\Services\ShortLink\ShortUrlGenerator;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFilter;
 
@@ -11,7 +11,7 @@ class ShortLinkExtension extends AbstractExtension
 {
     private $shortUrlHelper;
 
-    public function __construct(ShortUrlHelper $shortUrlHelper)
+    public function __construct(ShortUrlGenerator $shortUrlHelper)
     {
         $this->shortUrlHelper = $shortUrlHelper;
     }
