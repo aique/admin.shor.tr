@@ -37,7 +37,7 @@ class UserController extends BaseAdminController
         /** @var User $user */
         $user = $this->get('security.token_storage')->getToken()->getUser();
 
-        if (!$user->getisAdmin()) {
+        if (!$user->getIsAdmin()) {
             throw $this->createAccessDeniedException();
         }
 
@@ -49,7 +49,7 @@ class UserController extends BaseAdminController
         /** @var User $user */
         $user = $this->get('security.token_storage')->getToken()->getUser();
 
-        if (!$user->getisAdmin()) {
+        if (!$user->getIsAdmin()) {
             throw $this->createAccessDeniedException();
         }
 
@@ -61,7 +61,7 @@ class UserController extends BaseAdminController
         /** @var User $user */
         $user = $this->get('security.token_storage')->getToken()->getUser();
 
-        if (!$user->getisAdmin()) {
+        if (!$user->getIsAdmin()) {
             throw $this->createAccessDeniedException();
         }
 
@@ -73,7 +73,7 @@ class UserController extends BaseAdminController
         /** @var User $user */
         $user = $this->get('security.token_storage')->getToken()->getUser();
 
-        if (!$user->getisAdmin()) {
+        if (!$user->getIsAdmin()) {
             throw $this->createAccessDeniedException();
         }
 
@@ -85,7 +85,7 @@ class UserController extends BaseAdminController
         /** @var User $user */
         $user = $this->get('security.token_storage')->getToken()->getUser();
 
-        if (!$user->getisAdmin()) {
+        if (!$user->getIsAdmin()) {
             throw $this->createAccessDeniedException();
         }
 

@@ -10,8 +10,8 @@ use PHPUnit\Framework\TestCase;
 class ShortUrlGeneratorTest extends TestCase {
 
     const FRONT_URL = 'http://shor.tr/';
-    const SHORTER_TEST_ID = '1';
-    const SHORTER_TEST_URL = 'b';
+    const SHORT_LINK_ID = '1';
+    const SHORT_LINK_URL = 'b';
 
     /** @var ShortUrlGenerator */
     private $urlGenerator;
@@ -22,8 +22,8 @@ class ShortUrlGeneratorTest extends TestCase {
     }
 
     public function testUrlGenerator() {
-        $shortLink = new ShortLink(self::SHORTER_TEST_ID, self::SHORTER_TEST_URL);
-        $this->assertEquals(self::FRONT_URL.self::SHORTER_TEST_URL, $this->urlGenerator->shortUrl($shortLink));
+        $shortLink = new ShortLink();
+        $this->assertEquals(self::FRONT_URL.self::SHORT_LINK_URL, $this->urlGenerator->shortUrl($shortLink));
     }
 
     private function createShorterMock() {
@@ -34,7 +34,7 @@ class ShortUrlGeneratorTest extends TestCase {
         $mobileDetectorMock
             ->expects($this->once())
             ->method('getShorterUrl')
-            ->willReturn(self::SHORTER_TEST_URL);
+            ->willReturn(self::SHORT_LINK_URL);
 
         return $mobileDetectorMock;
     }

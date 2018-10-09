@@ -124,11 +124,20 @@ class LinkRequestStats
      */
     public function setDevice($device)
     {
-        if (!in_array($device, array(self::MOBILE_DEVICE, self::TABLET_DEVICE, self::DESKTOP_DEVICE, self::UNKNOWN_DEVICE))) {
+        if ($this->isInvalidDevice($device)) {
             throw new \InvalidArgumentException("Invalid device");
         }
 
         $this->device = $device;
+    }
+
+    private function isInvalidDevice($device) {
+        return !in_array($device, [
+            self::MOBILE_DEVICE,
+            self::TABLET_DEVICE,
+            self::DESKTOP_DEVICE,
+            self::UNKNOWN_DEVICE
+        ]);
     }
 
     /**

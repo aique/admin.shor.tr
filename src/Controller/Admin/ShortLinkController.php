@@ -41,7 +41,7 @@ class ShortLinkController extends BaseAdminController
         /** @var User $user */
         $user = $this->get('security.token_storage')->getToken()->getUser();
 
-        if (!$user->getisAdmin()) {
+        if (!$user->getIsAdmin()) {
             $query
                 ->andWhere('entity.user = :user')
                 ->setParameter('user', $user);
@@ -55,7 +55,7 @@ class ShortLinkController extends BaseAdminController
         /** @var User $user */
         $user = $this->get('security.token_storage')->getToken()->getUser();
 
-        if ($user->getisAdmin()) {
+        if ($user->getIsAdmin()) {
             throw $this->createAccessDeniedException();
         }
 
@@ -108,7 +108,7 @@ class ShortLinkController extends BaseAdminController
         /** @var User $user */
         $user = $this->get('security.token_storage')->getToken()->getUser();
 
-        if ($user->getisAdmin()) {
+        if ($user->getIsAdmin()) {
             throw $this->createAccessDeniedException();
         }
 

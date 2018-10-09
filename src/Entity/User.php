@@ -25,6 +25,8 @@ class User implements UserInterface, \Serializable
     private $id;
 
     /**
+     * @var string
+     *
      * @Assert\Length(
      *     min=5,
      *     max=25,
@@ -174,7 +176,7 @@ class User implements UserInterface, \Serializable
     /**
      * @return mixed
      */
-    public function getisAdmin()
+    public function getIsAdmin()
     {
         return $this->isAdmin;
     }
