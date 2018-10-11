@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Tests\Controller\DefaultController;
+namespace App\Tests\Controller;
 
 abstract class LoginTestCase extends SignFormSubmitCase {
 

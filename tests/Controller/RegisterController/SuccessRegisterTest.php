@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Tests\Controller\DefaultController;
+namespace App\Tests\Controller\RegisterController;
 
+use App\Tests\Controller\RegisterTestCase;
 use Doctrine\ORM\EntityManagerInterface;
 
 class SuccessRegisterTest extends RegisterTestCase {

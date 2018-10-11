@@ -1,6 +1,8 @@
 <?php
 
-namespace App\Tests\Controller\DefaultController;
+namespace App\Tests\Controller\RegisterController;
+
+use App\Tests\Controller\RegisterTestCase;
 
 class SuccessRegisterTestCase extends RegisterTestCase {
 

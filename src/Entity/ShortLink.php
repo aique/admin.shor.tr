@@ -24,7 +24,7 @@ class ShortLink
     private $url;
 
     /**
-     * @ORM\ManyToOne(targetEntity="User", inversedBy="shortLinks")
+     * @ORM\ManyToOne(targetEntity="User", inversedBy="shortLinks", cascade={"persist", "remove"})
      * @ORM\JoinColumn(name="user_id", referencedColumnName="id", nullable=false)
      */
     private $user;

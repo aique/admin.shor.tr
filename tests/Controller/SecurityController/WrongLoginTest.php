@@ -1,6 +1,8 @@
 <?php
 
-namespace App\Tests\Controller\DefaultController;
+namespace App\Tests\Controller\SecurityController;
+
+use App\Tests\Controller\LoginTestCase;
 
 class WrongLoginTest extends LoginTestCase {
 
