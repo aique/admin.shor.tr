@@ -17,7 +17,6 @@ class IndexTest extends WebTestCase {
     private $client;
 
     public function setUp() {
-        parent::setUp();
         $this->client = self::createClient();
     }
 

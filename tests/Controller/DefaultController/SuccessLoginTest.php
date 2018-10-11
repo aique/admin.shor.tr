@@ -2,41 +2,28 @@
 
 namespace App\Tests\Controller\DefaultController;
 
-use Symfony\Bundle\FrameworkBundle\Client;
-use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
-use Symfony\Component\DomCrawler\Crawler;
-
-class SuccessLoginTest extends WebTestCase {
+class SuccessLoginTest extends LoginTestCase {
 
     const URI = '/login';
+    const REDIRECT_URI = '/admin';
     const METHOD = 'GET';
 
-    /** @var Client */
-    private $client;
+    const USERNAME = 'aique';
+    const PASSWORD = 'aique';
 
     public function setUp() {
         parent::setUp();
-        $this->client = self::createClient();
+
+        $this->username = self::USERNAME;
+        $this->password = self::PASSWORD;
+
+        $this->redirectUri = self::REDIRECT_URI;
     }
 
     public function testSuccessLogin() {
         $crawler = $this->client->request(self::METHOD, self::URI);
 
         $this->assertTrue($this->client->getResponse()->isSuccessful());
-        $this->assertFormSubmit($crawler);
-    }
-
-    private function assertFormSubmit(Crawler $crawler) {
-        $form = $crawler->filter('.btn-default')->form();
-
-        $form['_username'] = 'aique';
-        $form['_password'] = 'aique';
-
-        $this->client->submit($form);
-
-        $this->client->followRedirect();
-
-        $this->assertTrue($this->client->getResponse()->isRedirection());
-        $this->assertContains('/admin', $this->client->getHistory()->current()->getUri());
+        $this->assertSuccessFormSubmit($crawler);
     }
 }
