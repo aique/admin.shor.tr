@@ -2,25 +2,20 @@
 
 namespace App\Tests\Controller\ApiController;
 
+use App\Entity\LinkRequestStats;
 use App\Entity\ShortLink;
 use App\Tests\Utils\UserGenerator;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Id\AssignedGenerator;
 use Doctrine\ORM\Mapping\ClassMetadata;
-use Symfony\Bundle\FrameworkBundle\Client;
-use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
-class FrontSuccessUrlRequestTest extends WebTestCase {
-
-    const URI = '/api/shortlink/';
-    const METHOD = 'GET';
+class FrontSuccessUrlRequestTest extends FrontUrlRequestTestCase {
 
     const SHORT_LINK_ID = 1;
     const SHORT_LINK_VALUE = 'b';
     const SHORT_LINK_URL = 'http://youtube.com';
 
-    /** @var Client */
-    private $client;
+    const REQUEST_STATS_IP = '192.168.1.10';
 
     /** @var EntityManagerInterface $entityManager */
     private $em;
@@ -67,15 +62,33 @@ class FrontSuccessUrlRequestTest extends WebTestCase {
     }
 
     public function testSuccessUrlRequest() {
-        $this->client->request(self::METHOD, self::URI.self::SHORT_LINK_VALUE);
+        $this->client->request(
+            self::METHOD,
+            self::URI.self::SHORT_LINK_VALUE,
+            [
+                'ip' => self::REQUEST_STATS_IP
+            ]
+        );
 
         $this->assertTrue($this->client->getResponse()->isSuccessful());
         $this->assertResponseUrl();
+        $this->assertRequestLinkStats();
     }
 
     private function assertResponseUrl() {
         $content = json_decode($this->client->getResponse()->getContent(), true);
         $this->assertEquals(self::SHORT_LINK_URL, $content['url']);
+    }
+
+    private function assertRequestLinkStats() {
+        $stats = $this->em->getRepository('App:LinkRequestStats')->findAll();
+
+        $this->assertCount(1, $stats);
+
+        /** @var LinkRequestStats $stat */
+        $stat = $stats[0];
+
+        $this->assertEquals(self::REQUEST_STATS_IP, $stat->getIp());
     }
 
     public function tearDown() {

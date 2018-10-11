@@ -4,7 +4,7 @@ namespace App\Tests\Controller\RegisterController;
 
 use App\Tests\Controller\RegisterTestCase;
 
-class SuccessRegisterTestCase extends RegisterTestCase {
+class WrongRegisterFormDataTest extends RegisterTestCase {
 
     const REDIRECT_URI = '/register';
 

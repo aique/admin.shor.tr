@@ -2,17 +2,9 @@
 
 namespace App\Tests\Controller\ApiController;
 
-use Symfony\Bundle\FrameworkBundle\Client;
-use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
+class FrontNonexistentUrlRequestTest extends FrontUrlRequestTestCase {
 
-class FrontNonexistentUrlRequestTest extends WebTestCase {
-
-    const URI = '/shortlink/';
     const SHORT_LINK = 'test';
-    const METHOD = 'GET';
-
-    /** @var Client */
-    private $client;
 
     public function setUp() {
         $this->client = self::createClient();

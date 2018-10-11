@@ -1,24 +1,24 @@
 <?php
 
-namespace App\Tests\Controller\SecurityController;
+namespace App\Tests\Controller\RegisterController;
 
-use App\Entity\User;
-use App\Tests\Controller\LoginTestCase;
+use App\Tests\Controller\RegisterTestCase;
 use App\Tests\Utils\UserGenerator;
 use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Component\Security\Core\Tests\Encoder\PasswordEncoder;
 
-class SuccessLoginTest extends LoginTestCase {
+class DuplicatedUserRegisterTest extends RegisterTestCase {
 
-    const URI = '/login';
-    const REDIRECT_URI = '/admin';
-    const METHOD = 'GET';
+    const REDIRECT_URI = '/register';
+
+    const USERNAME = UserGenerator::USERNAME;
+    const EMAIL = UserGenerator::EMAIL;
+    const PASSWORD = UserGenerator::PASSWORD;
+
+    const DUPLICATED_USERNAME_ERROR_MESSAGE = 'Username is already used';
+    const DUPLICATED_EMAIL_ERROR_MESSAGE = 'Email is already used';
 
     /** @var EntityManagerInterface */
     private $em;
-
-    /** @var User */
-    private $user;
 
     public function setUp() {
         parent::setUp();
@@ -26,10 +26,11 @@ class SuccessLoginTest extends LoginTestCase {
         $this->setUpEntityManager();
         $this->createUser();
 
-        $this->username = UserGenerator::USERNAME;
-        $this->password = UserGenerator::PASSWORD;
-
         $this->redirectUri = self::REDIRECT_URI;
+
+        $this->username = self::USERNAME;
+        $this->email = self::EMAIL;
+        $this->password = self::PASSWORD;
     }
 
     private function setUpEntityManager() {
@@ -46,11 +47,23 @@ class SuccessLoginTest extends LoginTestCase {
         $this->em->flush();
     }
 
-    public function testSuccessLogin() {
+    public function testDuplicatedUsernameRegister() {
+        $this->errorMessage = self::DUPLICATED_USERNAME_ERROR_MESSAGE;
+
         $crawler = $this->client->request(self::METHOD, self::URI);
 
         $this->assertTrue($this->client->getResponse()->isSuccessful());
-        $this->assertSuccessFormSubmit($crawler);
+        $this->assertWrongFormSubmitWithErrorMessage($crawler, '.inner>div');
+    }
+
+    public function testDuplicatedEmailRegister() {
+        $this->errorMessage = self::DUPLICATED_EMAIL_ERROR_MESSAGE;
+        $this->username = 'nuevo';
+
+        $crawler = $this->client->request(self::METHOD, self::URI);
+
+        $this->assertTrue($this->client->getResponse()->isSuccessful());
+        $this->assertWrongFormSubmitWithErrorMessage($crawler, '.inner>div');
     }
 
     public function tearDown() {

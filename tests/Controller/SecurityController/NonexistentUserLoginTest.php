@@ -4,7 +4,7 @@ namespace App\Tests\Controller\SecurityController;
 
 use App\Tests\Controller\LoginTestCase;
 
-class WrongLoginTest extends LoginTestCase {
+class NonexistentUserLoginTest extends LoginTestCase {
 
     const REDIRECT_URI = '/login';
 
@@ -20,7 +20,7 @@ class WrongLoginTest extends LoginTestCase {
         $this->redirectUri = self::REDIRECT_URI;
     }
 
-    public function testWrongLogin() {
+    public function testNonexistentUserLogin() {
         $crawler = $this->client->request(self::METHOD, self::URI);
 
         $this->assertTrue($this->client->getResponse()->isSuccessful());
